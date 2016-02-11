@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+'use strict';
 var Tail = require('always-tail');
 var fs = require('fs');
 var clc = require('cli-color');
@@ -14,39 +15,40 @@ program
 
 var filename = program.file;
 var interval = program.interval || 1000;
-var regex = program.regex || "";
-var delim = program.delim || "\n";
+var regex = program.regex || '';
+var delim = program.delim || '\n';
 
 if (!filename) {
-	console.error("no select file");
+	console.error('no select file');
 	program.outputHelp();
 	process.exit(1);
 }
 
-if (!fs.existsSync(filename)) fs.writeFileSync(filename, "");
+if (!fs.existsSync(filename)) {
+	fs.writeFileSync(filename, '');
+}
 
-var tail = new Tail(filename, delim, {interval:interval});
+var tail = new Tail(filename, delim, {interval: interval});
 
 tail.on('line', function(data) {
-	var tail_reg = new RegExp(regex, "g");
-	var prev_cursor = 0;
+	var tailReg = new RegExp(regex, 'g');
+	var prevCursor = 0;
 	var result;
 
-	if ((result = tail_reg.exec(data)) != null) {
-		var result_colored_string = "";
+	if ((result = tailReg.exec(data)) !== null) {
+		var resultColoredString = '';
 		do {
-			var colored_string = data.substring(result.index, tail_reg.lastIndex);
+			var coloredString = data.substring(result.index, tailReg.lastIndex);
 
-			result_colored_string += 
-				(data.substring(prev_cursor, result.index) + clc.red(colored_string));
-			prev_cursor = tail_reg.lastIndex;
-		} while((result = tail_reg.exec(data)) != null);
+			resultColoredString +=
+				(data.substring(prevCursor, result.index) + clc.red(coloredString));
+			prevCursor = tailReg.lastIndex;
+		} while ((result = tailReg.exec(data)) !== null);
 
-		console.log(result_colored_string + data.substring(prev_cursor, data.length));
+		console.log(resultColoredString + data.substring(prevCursor, data.length));
 	} else {
 		console.log(data);
 	}
 });
-
 
 tail.watch();

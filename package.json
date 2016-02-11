@@ -1,12 +1,12 @@
 {
   "name": "regex-tail",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "regex tail",
   "files": [
     "index.js"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "xo && ava"
   },
   "bin": {
     "regex-tail": "index.js"
@@ -29,5 +29,9 @@
     "always-tail": "~0.2.0",
     "cli-color": "~1.1.0",
     "commander": "~2.9.0"
+  },
+  "devDependencies": {
+    "ava": "^0.11.0",
+    "xo": "^0.12.1"
   }
 }
