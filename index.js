@@ -29,15 +29,20 @@ var tail = new Tail(filename, delim, {interval:interval});
 
 tail.on('line', function(data) {
 	var tail_reg = new RegExp(regex, "g");
+	var prev_cursor = 0;
 	var result;
 
-	if((result = tail_reg.exec(data)) != null) {
-		var colored_string = data.substring(result.index, tail_reg.lastIndex);
+	if ((result = tail_reg.exec(data)) != null) {
+		var result_colored_string = "";
+		do {
+			var colored_string = data.substring(result.index, tail_reg.lastIndex);
 
-		console.log(
-			data.substring(0, result.index) + 
-			clc.red(colored_string) + 
-			data.substring(tail_reg.lastIndex, data.length));
+			result_colored_string += 
+				(data.substring(prev_cursor, result.index) + clc.red(colored_string));
+			prev_cursor = tail_reg.lastIndex;
+		} while((result = tail_reg.exec(data)) != null);
+
+		console.log(result_colored_string + data.substring(prev_cursor, data.length));
 	} else {
 		console.log(data);
 	}
