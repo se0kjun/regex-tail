@@ -30,12 +30,14 @@ if (!fs.existsSync(filename)) {
 
 var tail = new Tail(filename, delim, {interval: interval});
 
-tail.on('line', function(data) {
+tail.on('line', function (data) {
 	var tailReg = new RegExp(regex, 'g');
 	var prevCursor = 0;
 	var result;
 
-	if ((result = tailReg.exec(data)) !== null) {
+	if ((result = tailReg.exec(data))) {
+		console.log(data);
+	} else {
 		var resultColoredString = '';
 		do {
 			var coloredString = data.substring(result.index, tailReg.lastIndex);
@@ -46,8 +48,6 @@ tail.on('line', function(data) {
 		} while ((result = tailReg.exec(data)) !== null);
 
 		console.log(resultColoredString + data.substring(prevCursor, data.length));
-	} else {
-		console.log(data);
 	}
 });
 
