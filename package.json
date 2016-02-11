@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "regex-tail": "index.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/se0kjun/regex-tail.git"
@@ -22,6 +25,7 @@
   },
   "dependencies": {
     "always-tail": "~0.2.0",
-    "cli-color": "~1.1.0"
+    "cli-color": "~1.1.0",
+    "commander": "~2.9.0"
   }
 }

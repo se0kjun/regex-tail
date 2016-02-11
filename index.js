@@ -2,15 +2,25 @@
 var Tail = require('always-tail');
 var fs = require('fs');
 var clc = require('cli-color');
+var program = require('commander');
 
-var filename = "/tmp/testlog";
+program
+	.version('0.0.1')
+	.option('-f, --file [value]', 'Add file path')
+	.option('-i, --interval <n>', 'Set interval')
+	.option('-r, --regex [value]', 'Set regex')
+	.parse(process.argv);
+
+var filename = program.file;
+var interval = program.interval || 1000;
+var regex = program.regex || "";
 
 if (!fs.existsSync(filename)) fs.writeFileSync(filename, "");
 
 var tail = new Tail(filename, '\n', {interval:1000});
 
 tail.on('line', function(data) {
-	var tail_reg = new RegExp("500", "g");
+	var tail_reg = new RegExp(regex, "g");
 	var result;
 
 	if((result = tail_reg.exec(data)) != null) {
@@ -26,5 +36,6 @@ tail.on('line', function(data) {
 		console.log(data);
 	}
 });
+
 
 tail.watch();
