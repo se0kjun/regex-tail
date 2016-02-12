@@ -1,6 +1,6 @@
 {
   "name": "regex-tail",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "regex tail",
   "files": [
     "index.js"
