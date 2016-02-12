@@ -13,3 +13,6 @@
 	npm install
 	npm link
 
+##LICENSE
+
+	MIT © [Seokjun Hong](https://github.com/se0kjun)
