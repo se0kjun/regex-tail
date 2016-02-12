@@ -6,7 +6,7 @@ var clc = require('cli-color');
 var program = require('commander');
 
 program
-	.version('0.0.1')
+	.version('0.0.2')
 	.option('-f, --file [value]', 'Add file path')
 	.option('-i, --interval <n>', 'Set interval')
 	.option('-r, --regex [value]', 'Set regex')
@@ -36,8 +36,6 @@ tail.on('line', function (data) {
 	var result;
 
 	if ((result = tailReg.exec(data))) {
-		console.log(data);
-	} else {
 		var resultColoredString = '';
 		do {
 			var coloredString = data.substring(result.index, tailReg.lastIndex);
@@ -48,6 +46,8 @@ tail.on('line', function (data) {
 		} while ((result = tailReg.exec(data)) !== null);
 
 		console.log(resultColoredString + data.substring(prevCursor, data.length));
+	} else {
+		console.log(data);
 	}
 });
 
