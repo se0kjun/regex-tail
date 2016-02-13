@@ -8,15 +8,26 @@ var program = require('commander');
 program
 	.version('0.0.3')
 	.option('-f, --file [value]', 'Add file path')
-	.option('-i, --interval <n>', 'Set interval')
+	.option('-i, --interval <n>', 'Set interval (default: 1000ms)')
 	.option('-r, --regex [value]', 'Set regex')
-	.option('-d, --delim [value]', 'Set delimeter')
+	.option('-c, --color [value]', 'Set color (default: red and bgWhite', function(val) {
+		return val.split(',');
+	})
+	.option('-d, --delim [value]', 'Set delimeter (default: \\n)')
 	.parse(process.argv);
 
 var filename = program.file;
 var interval = program.interval || 1000;
 var regex = program.regex;
 var delim = program.delim || '\n';
+var textColor = 9;
+var bgColor = 15;
+if (program.color) {
+	var textColor = program.color[0];
+	var bgColor = program.color[1];
+}
+
+var clcColorMsg = clc.xterm(textColor).bgXterm(bgColor);
 
 if (!filename) {
 	console.error('no select file');
@@ -41,7 +52,7 @@ tail.on('line', function (data) {
 			var coloredString = data.substring(result.index, tailReg.lastIndex);
 
 			resultColoredString +=
-				(data.substring(prevCursor, result.index) + clc.red(coloredString));
+				(data.substring(prevCursor, result.index) + clcColorMsg(coloredString));
 			prevCursor = tailReg.lastIndex;
 		} while ((result = tailReg.exec(data)) !== null);
 
