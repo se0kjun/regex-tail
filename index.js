@@ -15,7 +15,7 @@ program
 
 var filename = program.file;
 var interval = program.interval || 1000;
-var regex = program.regex || '';
+var regex = program.regex;
 var delim = program.delim || '\n';
 
 if (!filename) {
@@ -35,7 +35,7 @@ tail.on('line', function (data) {
 	var prevCursor = 0;
 	var result;
 
-	if ((result = tailReg.exec(data))) {
+	if ((result = tailReg.exec(data)) && regex) {
 		var resultColoredString = '';
 		do {
 			var coloredString = data.substring(result.index, tailReg.lastIndex);
