@@ -10,13 +10,17 @@
 
 	Options:
 
-	    -h, --help           output usage information
-	    -V, --version        output the version number
-	    -f, --file [value]   Add file path
-	    -i, --interval <n>   Set interval
-	    -r, --regex [value]  Set regex
-	    -d, --delim [value]  Set delimeter
-	
+	  -h, --help           output usage information
+	  -V, --version        output the version number
+	  -f, --file [value]   Add file path
+	  -i, --interval <n>   Set interval (default: 1000ms)
+	  -r, --regex [value]  Set regex
+	  -c, --color <n>,<n>  Set color code (default: red and bgWhite)
+	  -d, --delim [value]  Set delimeter (default: \n)
+
+##Color table
+
+[color table](https://github.com/medikoo/cli-color#xterm-colors-256-colors-table)
 
 ##Development
 

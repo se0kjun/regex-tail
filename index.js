@@ -6,7 +6,7 @@ var clc = require('cli-color');
 var program = require('commander');
 
 program
-	.version('0.0.3')
+	.version('0.0.4')
 	.option('-f, --file [value]', 'Add file path')
 	.option('-i, --interval <n>', 'Set interval (default: 1000ms)')
 	.option('-r, --regex [value]', 'Set regex')
