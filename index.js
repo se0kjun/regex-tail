@@ -10,7 +10,7 @@ program
 	.option('-f, --file [value]', 'Add file path')
 	.option('-i, --interval <n>', 'Set interval (default: 1000ms)')
 	.option('-r, --regex [value]', 'Set regex')
-	.option('-c, --color [value]', 'Set color (default: red and bgWhite', function(val) {
+	.option('-c, --color [value]', 'Set color (default: red and bgWhite)', function (val) {
 		return val.split(',');
 	})
 	.option('-d, --delim [value]', 'Set delimeter (default: \\n)')
@@ -20,11 +20,11 @@ var filename = program.file;
 var interval = program.interval || 1000;
 var regex = program.regex;
 var delim = program.delim || '\n';
-var textColor = 9;
-var bgColor = 15;
+var textColor = program.color || 9;
+var bgColor = program.color || 15;
 if (program.color) {
-	var textColor = program.color[0];
-	var bgColor = program.color[1];
+	textColor = program.color[0];
+	bgColor = program.color[1];
 }
 
 var clcColorMsg = clc.xterm(textColor).bgXterm(bgColor);
